@@ -42,6 +42,7 @@ public class StudentCode {
   }
 
   public static BigInt sub(BigInt A, BigInt B) {
+//	  sub is identical to add, except for not setting the carry at the end (due to it always 0)
 	  BigInt r = new BigInt();
 	  
 	  Unsigned carry = new Unsigned(0); 
@@ -58,7 +59,47 @@ public class StudentCode {
   }
 
   public static BigInt koMul(BigInt A, BigInt B) {
-	  return null;
+
+	  BigInt r = new BigInt();
+	  
+	  int n = Math.max(A.length(), B.length());
+	  int mid = Math.floorDiv(n, 2);
+	  
+	  BigInt alphaZero 	= A.split(0, mid-1);
+	  BigInt alphaOne 	= A.split(mid, n);
+	  
+	  BigInt betaZero 	= B.split(0, mid-1);
+	  BigInt betaOne 	= B.split(mid, n);
+	  
+//	  base case - single multiplication
+	  boolean cond = A.length() == 1 && B.length() == 1;
+	  
+	  if (cond) {
+		  DigitAndCarry dc = Arithmetic.mulDigits(alphaOne.getDigit(0), betaOne.getDigit(0));
+		  
+		  r.setDigit(0, dc.getDigit());
+		  r.setDigit(1, dc.getCarry());
+		  
+	  } else {
+		  
+		  BigInt tZero	= koMul(alphaZero, betaZero);
+		  
+		  BigInt tTwo	= koMul(alphaOne, betaOne);
+		  
+		  BigInt tOne	= sub(
+							  koMul((add(alphaZero, alphaOne)), (add(betaZero, betaOne))),
+							  add(tZero, tTwo)
+							  );
+		  
+		  r = tZero;
+		  r.lshift(1);
+		  r = add(r, tOne);
+		  r.lshift(1);
+		  r = add(r, tTwo);
+		  
+	  }
+	  
+	  return r;
 	  
   }
 
@@ -68,15 +109,21 @@ public class StudentCode {
 
   public static void main(String argv[]) throws java.io.FileNotFoundException {
 	  
-	  BigInt a = new BigInt("1 2 3 4");
-	  BigInt b = new BigInt("456");
+	  BigInt a = new BigInt("5 4321");
+	  BigInt b = new BigInt("9 8760");
 	  
-	  a.print();
+	  BigIntMul.mulTest(new Unsigned(1000), new Unsigned(1));
 	  
-	  System.out.println(a.length());
+//	  koMul(new BigInt("1000 0000"), new BigInt("1000 0000"));
 	  
-	  a.split(0, 1).print();
+//	  a.print();
+//	  
+//	  System.out.println(a.length());
+//	  
+//	  a.split(0, 1).print();
 	  
+//	  BigInt c = koMul(a, b);
+//	  c.print();
 	  
 //	  
 //	  add(a, b).print();
