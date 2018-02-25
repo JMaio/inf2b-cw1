@@ -175,6 +175,13 @@ public class StudentCode {
 
   public static void main(String argv[]) throws java.io.FileNotFoundException {
 	  
+// ------------------------------------------------------------------
+//	
+//	  Disclaimer: All the following is code used in testing and is 
+//	  not in any particular order
+//	  
+// ------------------------------------------------------------------  
+	  
 //	  BigInt a = new BigInt("5 4321");
 //	  BigInt b = new BigInt("9 8760");
 	  
@@ -199,7 +206,7 @@ public class StudentCode {
 //	  BigInt.setRandSeed(19980212);
 //	  
 //	  
-	  File times = new File("koMulOptTimes.txt");
+//	  File times = new File("koMulOptTimes.txt");
 //	  File ratios = new File("koMulOptRatios.txt");
 //	  
 //	  BigIntMul.getRunTimes(
@@ -215,12 +222,11 @@ public class StudentCode {
 //			  new Unsigned(90),
 //			  ratios,
 //			  new Unsigned(100));
-	 
-	  
-	  BigIntMul.plotRunTimes(
-			  0.0023802292733919746,
-			  0.001898901889814535,
-			  times);
-	  
+//	  
+//	  BigIntMul.plotRunTimes(
+//			  0.0023802292733919746,
+//			  0.001898901889814535,
+//			  times);
+//	  
   }
 } //end StudentCode class
