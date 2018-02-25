@@ -198,25 +198,25 @@ public class StudentCode {
 //	  add(a, b).print();
 //	  sub(b, a).print();
 	  
-	  BigIntMul.getRunTimes(
-			  new Unsigned(1),
-			  new Unsigned(10),
-			  new Unsigned(90),
-			  new File("koMulOptTimes"),
-			  true);
+//	  BigIntMul.getRunTimes(
+//			  new Unsigned(1),
+//			  new Unsigned(10),
+//			  new Unsigned(90),
+//			  new File("koMulOptTimes"),
+//			  true);
+//	  
+//	  BigIntMul.getRatios(
+//			  new Unsigned(1),
+//			  new Unsigned(10),
+//			  new Unsigned(90),
+//			  new File("koMulOptRatios"),
+//			  new Unsigned(100));
 	  
-	  BigIntMul.getRatios(
-			  new Unsigned(1),
-			  new Unsigned(10),
-			  new Unsigned(90),
-			  new File("koMulOptRatios"),
-			  new Unsigned(100));
 	  
-	  
-	  BigIntMul.plotRunTimes(
-			  0.002041362534658618,
-			  0.0016832707345887528,
-			  new File("koMulOptTimes"));
-	  
+//	  BigIntMul.plotRunTimes(
+//			  0.0018645571121443064,
+//			  0.0016374178205805039,
+//			  new File("koMulOptTimes"));
+//	  
   }
 } //end StudentCode class
