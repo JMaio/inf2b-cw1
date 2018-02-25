@@ -66,19 +66,23 @@ public class StudentCode {
 	  int n = Math.max(A.length(), B.length());
 	  int mid = Math.floorDiv(n, 2);
 	  
-//	  obtain in reverse order due to representation
-	  BigInt alphaZero 	= A.split(0, mid-1);
-	  BigInt alphaOne 	= A.split(mid, n);
-	  
-	  BigInt betaZero 	= B.split(0, mid-1);
-	  BigInt betaOne 	= B.split(mid, n);
-	  
 //	  base case - single multiplication
 	  boolean cond = A.length() <= 1 || B.length() <= 1;
 	  
 	  if (cond) {
-		  r = Arithmetic.schoolMul(alphaOne, betaOne);
+		  DigitAndCarry dc = Arithmetic.mulDigits(A.getDigit(0), B.getDigit(0));
+		  
+		  r.setDigit(0, dc.getDigit());
+		  r.setDigit(1, dc.getCarry());
+		  
 	  } else {
+		  
+//		  obtain in reverse order due to representation
+		  BigInt alphaZero 	= A.split(0, mid-1);
+		  BigInt alphaOne 	= A.split(mid, n);
+		  
+		  BigInt betaZero 	= B.split(0, mid-1);
+		  BigInt betaOne 	= B.split(mid, n);
 		  
 		  BigInt tZero	= koMul(alphaZero, betaZero);
 		  
@@ -112,6 +116,7 @@ public class StudentCode {
 //	  control for Opt variant:
 	  int min = Math.min(A.length(), B.length());
 	  
+//	  confirm lengths match to satisfy schoolMul
 	  if (min <= 10 && A.length() == B.length()) {
 		  
 		  r = Arithmetic.schoolMul(A, B);
@@ -122,38 +127,37 @@ public class StudentCode {
 		  int mid = Math.floorDiv(n, 2);
 		  
 //		  obtain in reverse order due to representation
-		  BigInt alphaZero 	= A.split(0, mid-1);
-		  BigInt alphaOne 	= A.split(mid, n);
 		  
-		  BigInt betaZero 	= B.split(0, mid-1);
-		  BigInt betaOne 	= B.split(mid, n);
 		  
 //		  base case - single multiplication
 		  boolean cond = A.length() <= 1 || B.length() <= 1;
 		  
-		  if (cond && A.length() == B.length()) {
+		  if (cond) {
+			  DigitAndCarry dc = Arithmetic.mulDigits(A.getDigit(0), B.getDigit(0));
 			  
-			  r = Arithmetic.schoolMul(alphaOne, betaOne);
+			  r.setDigit(0, dc.getDigit());
+			  r.setDigit(1, dc.getCarry());
 			  
 		  } else {
+			  
+			  BigInt alphaZero 	= A.split(0, mid-1);
+			  BigInt alphaOne 	= A.split(mid, n);
+			  
+			  BigInt betaZero 	= B.split(0, mid-1);
+			  BigInt betaOne 	= B.split(mid, n);
 			  
 			  BigInt tZero	= koMulOpt(alphaZero, betaZero);
 			  
 			  BigInt tTwo	= koMulOpt(alphaOne, betaOne);
 			  
 			  BigInt tOne	= sub(
-					  koMulOpt((add(alphaZero, alphaOne)), (add(betaZero, betaOne))),
-					  add(tZero, tTwo)
-					  );
+								  koMulOpt((add(alphaZero, alphaOne)), (add(betaZero, betaOne))),
+								  add(tZero, tTwo)
+								  );
 			  
-//		  System.out.println(tZero.value());
-//		  System.out.println(tOne.value());
-//		  System.out.println(tTwo.value());
-			  
-//			  tTwo.lshift(2 * mid);
-//			  tOne.lshift(mid);
-//			  
-//			  r = add(add(tZero, tOne), tTwo);
+//			  System.out.println(tZero.value());
+//			  System.out.println(tOne.value());
+//			  System.out.println(tTwo.value());
 			  
 			  r = add(r, tTwo);
 			  r.lshift(mid);
@@ -194,25 +198,29 @@ public class StudentCode {
 //	  sub(b, a).print();
 //	  BigInt.setRandSeed(19980212);
 //	  
+//	  
+	  File times = new File("koMulOptTimes.txt");
+//	  File ratios = new File("koMulOptRatios.txt");
+//	  
 //	  BigIntMul.getRunTimes(
 //			  new Unsigned(1),
 //			  new Unsigned(10),
 //			  new Unsigned(90),
-//			  new File("testTimes"),
+//			  times,
 //			  true);
 //	  
 //	  BigIntMul.getRatios(
 //			  new Unsigned(1),
 //			  new Unsigned(10),
 //			  new Unsigned(90),
-//			  new File("testRatios"),
+//			  ratios,
 //			  new Unsigned(100));
-//	 
-//	  
+	 
+	  
 	  BigIntMul.plotRunTimes(
-			  0.0018645571121443064,
-			  0.0016374178205805039,
-			  new File("koMulOptTimes.txt"));
+			  0.0023802292733919746,
+			  0.001898901889814535,
+			  times);
 	  
   }
 } //end StudentCode class
