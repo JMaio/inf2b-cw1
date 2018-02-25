@@ -112,7 +112,7 @@ public class StudentCode {
 //	  control for Opt variant:
 	  int min = Math.min(A.length(), B.length());
 	  
-	  if (min <= 10) {
+	  if (min <= 10 && A.length() == B.length()) {
 		  
 		  r = Arithmetic.schoolMul(A, B);
 		  
@@ -131,14 +131,9 @@ public class StudentCode {
 //		  base case - single multiplication
 		  boolean cond = A.length() <= 1 || B.length() <= 1;
 		  
-		  if (cond) {
+		  if (cond && A.length() == B.length()) {
 			  
 			  r = Arithmetic.schoolMul(alphaOne, betaOne);
-//			  
-//			  DigitAndCarry dc = Arithmetic.mulDigits(alphaOne.getDigit(0), betaOne.getDigit(0));
-//			  
-//			  r.setDigit(0, dc.getDigit());
-//			  r.setDigit(1, dc.getCarry());
 			  
 		  } else {
 			  
@@ -197,26 +192,27 @@ public class StudentCode {
 //	  
 //	  add(a, b).print();
 //	  sub(b, a).print();
-	  
+//	  BigInt.setRandSeed(19980212);
+//	  
 //	  BigIntMul.getRunTimes(
 //			  new Unsigned(1),
 //			  new Unsigned(10),
 //			  new Unsigned(90),
-//			  new File("koMulOptTimes"),
+//			  new File("testTimes"),
 //			  true);
 //	  
 //	  BigIntMul.getRatios(
 //			  new Unsigned(1),
 //			  new Unsigned(10),
 //			  new Unsigned(90),
-//			  new File("koMulOptRatios"),
+//			  new File("testRatios"),
 //			  new Unsigned(100));
-	  
-	  
-//	  BigIntMul.plotRunTimes(
-//			  0.0018645571121443064,
-//			  0.0016374178205805039,
-//			  new File("koMulOptTimes"));
+//	 
 //	  
+	  BigIntMul.plotRunTimes(
+			  0.0018645571121443064,
+			  0.0016374178205805039,
+			  new File("koMulOptTimes.txt"));
+	  
   }
 } //end StudentCode class
